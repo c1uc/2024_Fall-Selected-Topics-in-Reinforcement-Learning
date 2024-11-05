@@ -17,6 +17,7 @@ import wandb
 class AtariPPOAgent(PPOBaseAgent):
     def __init__(self, config):
         super(AtariPPOAgent, self).__init__(config)
+
         ### TODO ###
         # initialize env
         def make_env(noop_max=30):
@@ -217,24 +218,28 @@ class AtariPPOAgent(PPOBaseAgent):
                             episode_rewards[i],
                             self.total_time_step,
                         )
+
                         self.writer.add_scalar(
                             "Train/Episode Len", episode_lens[i], self.total_time_step
                         )
+
                         wandb.log(
                             {
                                 "Train/Reward": episode_rewards[i],
                                 "Train/Episode_Len": episode_lens[i],
                             },
-                            step=self.total_time_step
+                            step=self.total_time_step,
                         )
+
                     print(
                         f"env[{i}]: [{len(self.gae_replay_buffer)}/{self.update_sample_count}][{self.total_time_step}/{self.training_steps}] episode reward: {episode_rewards[i]}  episode len: {episode_lens[i]}"
                     )
+
                     episode_rewards[i] = 0
                     episode_lens[i] = 0
+                self.total_time_step += 1
 
             ob = next_ob
-            self.total_time_step += self.num_envs
 
             if self.total_time_step % self.eval_interval == 0:
                 # save model checkpoint
@@ -248,9 +253,4 @@ class AtariPPOAgent(PPOBaseAgent):
                 self.writer.add_scalar(
                     "Evaluate/Episode Reward", avg_score, self.total_time_step
                 )
-                wandb.log(
-                    {
-                        "Evaluate/Reward": avg_score
-                    },
-                    step=self.total_time_step
-                )
+                wandb.log({"Evaluate/Reward": avg_score}, step=self.total_time_step)

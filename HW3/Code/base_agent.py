@@ -33,7 +33,7 @@ class PPOBaseAgent(ABC):
             {
                 "horizon": config["horizon"],
                 "use_return_as_advantage": False,
-                "agent_count": config['num_envs'],
+                "agent_count": config["num_envs"],
             }
         )
 

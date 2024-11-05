@@ -3,6 +3,7 @@ import torch
 from collections import deque
 import random
 
+
 class ReplayMemory(object):
     def __init__(self, capacity):
         self.buffer = deque(maxlen=capacity)
@@ -17,5 +18,7 @@ class ReplayMemory(object):
     def sample(self, batch_size, device):
         """Sample a batch of transitions"""
         transitions = random.sample(self.buffer, batch_size)
-        return (torch.tensor(np.asarray(x), dtype=torch.float, device=device) for x in zip(*transitions))
-    
+        return (
+            torch.tensor(np.asarray(x), dtype=torch.float, device=device)
+            for x in zip(*transitions)
+        )
