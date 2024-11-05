@@ -163,3 +163,7 @@ cython_debug/
 *.docx
 *.zip
 log*/
+wandb/
+*.gif
+*.mp4
+.python-version
