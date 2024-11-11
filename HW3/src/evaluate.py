@@ -20,7 +20,7 @@ config = {
     "horizon": 512,
     "env_id": "ALE/Enduro-v5",
     "eval_interval": 256 * 1024,
-    "eval_episode": 3,
+    "eval_episode": 5,
     "num_envs": 256,
 }
 
