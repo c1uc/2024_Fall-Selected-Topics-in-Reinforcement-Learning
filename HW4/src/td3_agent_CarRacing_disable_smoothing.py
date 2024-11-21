@@ -63,11 +63,6 @@ class CarRacingTD3Agent(TD3BaseAgent):
 
         self.noise = GaussianNoise(self.env.action_space.shape[0], 0.0, 1.0)
 
-        train_noise_std = 0.2
-        train_noise_clip = 0.5
-        self.train_noise_clip = torch.tensor([train_noise_clip, train_noise_clip / 2, train_noise_clip / 2], device=self.device)
-        self.train_noise = GaussianNoise(self.env.action_space.shape[0], std=np.array([train_noise_std, train_noise_std / 2, train_noise_std / 2]))
-
     def decide_agent_actions(self, state, sigma=0.0, brake_rate=0.015):
         ### TODO ###
         # based on the behavior (actor) network and exploration noise
@@ -97,10 +92,7 @@ class CarRacingTD3Agent(TD3BaseAgent):
         with torch.no_grad():
         # 	# select action a_next from target actor network and add noise for smoothing
             a_next = self.target_actor_net(next_state, brake_rate=0.015)
-            train_noise = torch.tensor(self.train_noise.generate(), device=self.device)
-            train_noise = torch.clamp(train_noise, -self.train_noise_clip, self.train_noise_clip)
 
-            a_next = a_next + train_noise
             a_next[:, 0] = torch.clamp(a_next[:, 0], -1, 1)
             a_next[:, 1] = torch.clamp(a_next[:, 1], 0, 1)
             a_next[:, 2] = torch.clamp(a_next[:, 2], 0, 1)

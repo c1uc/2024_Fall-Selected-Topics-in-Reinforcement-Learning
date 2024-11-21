@@ -16,7 +16,7 @@ class CarRacingEnvironment:
     def __init__(self, N_frame=4, test=False):
         self.test = test
         if self.test:
-            self.env = gym.make("CarRacing-v2", render_mode="human")
+            self.env = gym.make("CarRacing-v2", render_mode="rgb_array")
         else:
             self.env = gym.make("CarRacing-v2")
         self.action_space = self.env.action_space

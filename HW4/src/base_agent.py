@@ -8,11 +8,13 @@ from torch.utils.tensorboard import SummaryWriter
 from replay_buffer.replay_buffer import ReplayMemory
 from abc import ABC, abstractmethod
 
+import wandb
+
 
 class GaussianNoise:
     def __init__(self, dim, mu=None, std=None):
-        self.mu = mu if mu else np.zeros(dim)
-        self.std = np.ones(dim) * std if std else np.ones(dim) * 0.1
+        self.mu = mu if mu is not None else np.zeros(dim)
+        self.std = np.ones(dim) * std if std is not None else np.ones(dim) * 0.1
 
     def reset(self):
         pass
@@ -138,6 +140,8 @@ class TD3BaseAgent(ABC):
                         )
                     )
 
+                    wandb.log({"Train/Episode Reward": total_reward}, step=self.total_time_step)
+
                     break
 
             if (episode + 1) % self.eval_interval == 0:
@@ -152,6 +156,8 @@ class TD3BaseAgent(ABC):
                 self.writer.add_scalar(
                     "Evaluate/Episode Reward", avg_score, self.total_time_step
                 )
+
+                wandb.log({"Evaluate/Episode Reward": avg_score}, step=self.total_time_step)
 
     def evaluate(self):
         print("==============================================")

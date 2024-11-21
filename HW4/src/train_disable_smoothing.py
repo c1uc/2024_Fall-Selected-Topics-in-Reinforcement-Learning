@@ -1,15 +1,15 @@
-from td3_agent_CarRacing import CarRacingTD3Agent
+from td3_agent_CarRacing_disable_smoothing import CarRacingTD3Agent
 import wandb
 import time
 
-test_type = "td3_original"
+test_type = "disable_smoothing"
 run_name = "CarRacing_TD3"
 t = time.strftime("%Y%m%d-%H%M%S")
 
 if __name__ == "__main__":
     # my hyperparameters, you can change it as you like
     config = {
-        "gpu": 1,
+        "gpu": 0,
         "training_steps": 1e8,
         "gamma": 0.99,
         "tau": 0.005,

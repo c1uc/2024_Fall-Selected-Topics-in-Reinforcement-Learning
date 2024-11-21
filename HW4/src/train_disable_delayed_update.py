@@ -1,15 +1,15 @@
-from td3_agent_CarRacing import CarRacingTD3Agent
+from td3_agent_CarRacing_disable_delayed_update import CarRacingTD3Agent
 import wandb
 import time
 
-test_type = "td3_original"
+test_type = "disable_delayed_update"
 run_name = "CarRacing_TD3"
 t = time.strftime("%Y%m%d-%H%M%S")
 
 if __name__ == "__main__":
     # my hyperparameters, you can change it as you like
     config = {
-        "gpu": 1,
+        "gpu": 0,
         "training_steps": 1e8,
         "gamma": 0.99,
         "tau": 0.005,
@@ -20,7 +20,7 @@ if __name__ == "__main__":
         "lrc": 4.5e-5,
         "replay_buffer_capacity": 5000,
         "logdir": f"log/{run_name}/{test_type}/",
-        "update_freq": 2,
+        "update_freq": 1,
         "eval_interval": 10,
         "eval_episode": 10,
     }

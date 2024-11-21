@@ -4,7 +4,7 @@ from ppo_agent_atari import AtariPPOAgent
 model_path = "./log/Enduro/model_85458944_2355.pth"
 
 config = {
-    "gpu": 2,
+    "gpu": 1,
     "training_steps": 1e9,
     "update_sample_count": 10000,
     "discount_factor_gamma": 0.99,
