@@ -9,7 +9,7 @@ t = time.strftime("%Y%m%d-%H%M%S")
 if __name__ == "__main__":
     # my hyperparameters, you can change it as you like
     config = {
-        "gpu": 1,
+        "gpu": 0,
         "training_steps": 1e8,
         "gamma": 0.99,
         "tau": 0.005,

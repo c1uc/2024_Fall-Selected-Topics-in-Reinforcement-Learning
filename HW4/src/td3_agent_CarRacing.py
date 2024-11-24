@@ -61,12 +61,12 @@ class CarRacingTD3Agent(TD3BaseAgent):
         noise_std = np.full(self.env.action_space.shape[0], 1.0, np.float32)
         self.noise = OUNoiseGenerator(noise_mean, noise_std)
 
-        self.noise = GaussianNoise(self.env.action_space.shape[0], 0.0, 1.0)
+        # self.noise = GaussianNoise(self.env.action_space.shape[0], 0.0, 1.0)
 
         train_noise_std = 0.2
         train_noise_clip = 0.5
         self.train_noise_clip = torch.tensor([train_noise_clip, train_noise_clip / 2, train_noise_clip / 2], device=self.device)
-        self.train_noise = GaussianNoise(self.env.action_space.shape[0], std=np.array([train_noise_std, train_noise_std / 2, train_noise_std / 2]))
+        self.train_noise = OUNoiseGenerator(noise_mean, std=np.array([train_noise_std, train_noise_std / 2, train_noise_std / 2]))
 
     def decide_agent_actions(self, state, sigma=0.0, brake_rate=0.015):
         ### TODO ###

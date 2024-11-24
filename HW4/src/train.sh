@@ -4,7 +4,7 @@ python train_disable_delayed_update.py > /dev/null 2>&1 &
 python train_disable_smoothing.py > /dev/null 2>&1 &
 python train_single_q.py > /dev/null 2>&1 &
 
-num_training_main=3
+num_training_main=2
 for ((i=0;i<$num_training_main;i++))
 do
     python main.py > /dev/null 2>&1 &

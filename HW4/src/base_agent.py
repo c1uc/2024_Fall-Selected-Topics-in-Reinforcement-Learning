@@ -24,11 +24,11 @@ class GaussianNoise:
 
 
 class OUNoiseGenerator:
-    def __init__(self, mean, std_dev, theta=0.3, dt=5e-2):
+    def __init__(self, mean, std, theta=0.3, dt=5e-2):
         self.theta = theta
         self.dt = dt
         self.mean = mean
-        self.std_dev = std_dev
+        self.std_dev = std
 
         self.x = None
 
