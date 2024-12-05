@@ -73,12 +73,12 @@ class CarRacingEnvironment:
             # enable this line to recover the original reward
             reward = original_reward
             # enable this line to recover the original terminates signal, disable this to accerlate evaluation
-            # terminates = original_terminates
+            terminates = original_terminates
 
         return obs, reward, terminates, truncates, info
 
-    def reset(self):
-        obs, info = self.env.reset()
+    def reset(self, seed=None):
+        obs, info = self.env.reset(seed=seed)
         self.ep_len = 0
         obs = cv2.cvtColor(obs, cv2.COLOR_BGR2GRAY)  # 96x96
 
@@ -90,7 +90,7 @@ class CarRacingEnvironment:
         return obs, info
 
     def render(self):
-        self.env.render()
+        return self.env.render()
 
     def close(self):
         self.env.close()
