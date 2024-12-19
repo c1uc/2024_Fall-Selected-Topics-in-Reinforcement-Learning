@@ -67,9 +67,13 @@ class RaceEnv(gym.Env):
 
         dict_actions = OrderedDict([(self.motor_name, array(motor_action, dtype=float32)),
                                     (self.steering_name, array(steering_action, dtype=float32))])
-        obs, *others = self.env.step(dict_actions)
+        obs, reward, done, truncated, info = self.env.step(dict_actions)
         obs = self.observation_postprocess(obs)
-        return obs, *others
+
+        info['motor'] = motor_action.copy()
+        info['steering'] = steering_action.copy()
+
+        return obs, reward, done, truncated, info
 
     def render(self):
         return self.env.render()
