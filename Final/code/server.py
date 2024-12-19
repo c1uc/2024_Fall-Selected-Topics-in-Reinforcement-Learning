@@ -47,10 +47,10 @@ def get_img_views():
     score = lap + progress - 1.
 
     # Get the images
-    img1 = env.env.force_render(render_mode='rgb_array_higher_birds_eye', width=540, height=540,
+    img1 = env.env.unwrapped.force_render(render_mode='rgb_array_higher_birds_eye', width=540, height=540,
                                 position=np.array([4.89, -9.30, -3.42]), fov=120)
-    img2 = env.env.force_render(render_mode='rgb_array_birds_eye', width=270, height=270)
-    img3 = env.env.force_render(render_mode='rgb_array_follow', width=128, height=128)
+    img2 = env.env.unwrapped.force_render(render_mode='rgb_array_birds_eye', width=270, height=270)
+    img3 = env.env.unwrapped.force_render(render_mode='rgb_array_follow', width=128, height=128)
     img4 = (obs.transpose((1, 2, 0))).astype(np.uint8)
 
     # Combine the images
@@ -215,10 +215,10 @@ def get_args():
     global sid, output_freq, port, scenario, host, MAX_ACCU_TIME
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-freq', type=int, default=5, help='output frequency')
-    parser.add_argument('--sid', type=str, required=True, help='The id of the student.')
+    parser.add_argument('--sid', type=str, default=0, help='The id of the student.')
     parser.add_argument('--port', type=int, default=5000, help='The port of the server.')
     parser.add_argument('--host', type=str, default='0.0.0.0', help='The host of the server.')
-    parser.add_argument('--scenario', type=str, required=True, help='The scenario name.')
+    parser.add_argument('--scenario', type=str, default='austria_competition', help='The scenario name.')
     args = parser.parse_args()
     sid = args.sid
     output_freq = args.output_freq

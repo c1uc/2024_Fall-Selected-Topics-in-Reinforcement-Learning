@@ -42,7 +42,7 @@ def connect(agent, url: str = "http://localhost:5000"):
 
 class Agent:
     def __init__(self, model_path, stack_size=8):
-        self.model = stable_baselines3.PPO.load(model_path)
+        self.model = stable_baselines3.PPO.load(model_path, device="cuda")
 
         self.obs_space = gymnasium.spaces.Box(0, 255, (84, 84), np.uint8)
 
@@ -65,7 +65,7 @@ class Agent:
         updated_obs = deepcopy(
             concatenate(self.obs_space, self.obs_queue, self.stacked_obs)
         )
-        return self.model.predict(updated_obs)
+        return self.model.predict(updated_obs)[0]
 
 
 if __name__ == "__main__":
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    agent_model_path = ""
+    agent_model_path = "./model.zip"
     rand_agent = Agent(agent_model_path)
 
     connect(rand_agent, url=args.url)
