@@ -73,7 +73,7 @@ def train(
         total_timesteps=total_timesteps,
         callback=WandbCallback(
             model_save_path=f"trained_models/{run.name}",
-            model_save_freq=1_000_000
+            model_save_freq=10_000
         ),
     )
     model.save(f"trained_models/{run.name}/final")
@@ -83,7 +83,7 @@ def parse_args() -> dict:
     import argparse, yaml
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default="./config/SAC_circle_noReset.yml")
+    parser.add_argument("--config", type=str, default="./config/PPO_austria_reset_sde.yml")
     args = parser.parse_args()
     with open(args.config, "r") as f:
         config = yaml.safe_load(f)

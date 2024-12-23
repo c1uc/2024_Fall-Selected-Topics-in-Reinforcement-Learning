@@ -78,7 +78,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    agent_model_path = "./model.zip"
+    agent_model_path = "./trained_models/PPO-austria_competition_collisionStop-64-reset-sde-2024-12-19-11-27-59/final.zip"
     rand_agent = Agent(agent_model_path)
 
     connect(rand_agent, url=args.url)
